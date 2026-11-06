@@ -1,1 +1,1 @@
-# pair-assignment
+Hi! The team for this assignment is Olha, Yelyzaveta, and Anastasiia.
