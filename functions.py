@@ -14,12 +14,3 @@ def count_codons_by_header(sequences):
     for header in counts:
         counts[header] = counts[header] // 3
     return counts
-
-test = [">seq1 desc", "ATTATAATT", ">seq2", "ATGATG"]
-print(count_codons_by_header(test))
-
-with open("C:/KSE/programming_term_1/programming-basics/data/sequences.fasta") as f:
-    count_codons_by_header
-    print(count_codons_by_header(f))
-
-    
