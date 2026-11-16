@@ -1,6 +1,11 @@
-STOP_CODONS = ["TAA", "TAG", "TGA"]
-
-
+def seq_length(path):   
+    sequences = read_fasta(path)
+    length = {}
+    for name in sequences:
+        seq = sequences[name]
+        length[name] = len(seq)
+    return length
+  
 def count_codons_by_header(sequences):
     counts = {}
     header = None
@@ -18,6 +23,7 @@ def count_codons_by_header(sequences):
         counts[header] = counts[header] // 3
     return counts
 
+STOP_CODONS = ["TAA", "TAG", "TGA"]
 
 def find_possible_orfs(lines, min_len=30):
     counts = {}
