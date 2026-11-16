@@ -1,45 +1,41 @@
-def seq_length(path):   
-    sequences = read_fasta(path)
+def read_fasta(path):
+    sequences = {}
+    name = None
+    with open(path) as f:
+        for line in f:
+            line = line.strip()
+            if line.startswith(">"):
+                name = line[1:]
+                sequences[name] = ""
+            else:
+                sequences[name] += line
+    return sequences
+
+def seq_length(sequences):
     length = {}
     for name in sequences:
         seq = sequences[name]
         length[name] = len(seq)
     return length
-  
+
+
+def fasta_total(sequences):
+    count = len(sequences)
+    return count
+
+
 def count_codons_by_header(sequences):
     counts = {}
-    header = None
-    for line in sequences:
-        line = line.strip()
-        if not line:
-            print("empty file")
-            continue
-        if line.startswith(">"):
-            header = line[1:]
-            counts[header] = 0
-        else:
-            counts[header] += len(line)
-    for header in counts:
-        counts[header] = counts[header] // 3
+    for header, seq in sequences.items():
+        counts[header] = len(seq) // 3
     return counts
-
+  
 STOP_CODONS = ["TAA", "TAG", "TGA"]
 
-def find_possible_orfs(lines, min_len=30):
-    counts = {}
-    header = None
-    for line in lines:
-        line = line.strip()
-        if not line:
-            print("empty file")
-            continue
-        if line.startswith(">"):
-            header = line[1:]
-            counts[header] = ""
-        else:
-            counts[header] += line.upper()
+def find_possible_orfs(sequences, min_len=30):
     orfs = {}
-    for header, seq in counts.items():
+    for header, seq in sequences.items():
+        seq = seq.upper()
         if len(seq) < min_len:
             print(f"{header} is too short")
             continue
