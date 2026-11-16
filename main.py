@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-from functions import reverse_complement
+from functions import reverse_complement, nucleotide_percentage
 
 reverse_complement("sequences.fasta")
-=======
-from functions import nucleotide_percentage
-
 nucleotide_percentage("sequences.fasta")
->>>>>>> origin/main
